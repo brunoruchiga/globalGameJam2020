@@ -3,18 +3,20 @@ class Game {
   boolean gameOver;
   float seconds;
   Player[] p = new Player[numberOfPlayers];
+  Path path;
 
   Game() {
     reset();
   }
 
   void reset() {
+    seconds = 0;
+    playing = true;
+    gameOver = false;
     for (int i = 0; i < p.length; i++) {
       p[i] = new Player(0, 0);
     }
-    playing = true;
-    gameOver = false;
-    seconds = 0;
+    path = new Path(0);
 
     camera.jumpToTarget(p[0].pos.x, p[0].pos.y - em, 1);
   }
@@ -35,6 +37,8 @@ class Game {
     camera.begin();
     {
       background(black);
+      
+      path.display();
 
       //Debug terrain
       float debugTerraingSpacing = 2*em;
