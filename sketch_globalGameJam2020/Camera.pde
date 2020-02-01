@@ -29,6 +29,7 @@ class Camera {
   void begin() {
     pushMatrix();
     translate(canvas.w*normalizedFocusPoint.x, canvas.h*normalizedFocusPoint.y);
+    //rotateX(0.8*HALF_PI);
     scale(pointOfInterest.z);
     translate(-pointOfInterest.x, -pointOfInterest.y);
   }
