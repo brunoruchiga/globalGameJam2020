@@ -62,10 +62,11 @@ class Player {
         strokeWeight(1);
         noFill();
         rect(-w/2, -h/2, w, h);
+        line(0, 0, w, 0);
       }
 
       stroke(255);
-      strokeWeight(5);
+      strokeWeight(3);
       point(0, 0);
       popMatrix();
     }

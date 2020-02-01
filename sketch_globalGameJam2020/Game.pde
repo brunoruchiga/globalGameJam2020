@@ -34,7 +34,7 @@ class Game {
     camera.update();
     camera.begin();
     {
-      background(green);
+      background(black);
 
       //Debug terrain
       float debugTerraingSpacing = 2*em;
