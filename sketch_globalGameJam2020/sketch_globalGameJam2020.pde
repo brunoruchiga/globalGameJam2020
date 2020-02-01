@@ -1,4 +1,4 @@
-boolean mobileBuild = true;
+boolean mobileBuild = false;
 int numberOfPlayers = 1;
 
 State state;
@@ -15,10 +15,12 @@ PFont font, fontBig, fontSmall;
 
 void settings() {
   if (mobileBuild) { 
+    //fullScreen(P3D);
     fullScreen(P3D);
   } else { 
     //size(360, 640, P3D);
     size(540, 960, P3D);
+    //fullScreen(P3D);
   }
 }
 
