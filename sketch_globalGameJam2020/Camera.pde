@@ -7,7 +7,7 @@ class Camera {
   Camera(float x, float y, float zoom, Canvas c) {
     pointOfInterest = new PVector(x, y, zoom);
     target = new PVector(x, y, zoom);
-    normalizedFocusPoint = new PVector(0.5, 0.5);
+    normalizedFocusPoint = new PVector(0.5, 0.75);
     canvas = c;
   }
 
