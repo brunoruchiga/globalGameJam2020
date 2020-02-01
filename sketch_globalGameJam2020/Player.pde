@@ -2,7 +2,9 @@ class Player {
   PVector initialPos = new PVector();
   PVector pos = new PVector();
   PVector prevPos = new PVector();
+  float speed;
   PVector vel = new PVector();
+  PVector acc = new PVector();
   float w, h;
   Rectangle area;
   boolean debug = false;
@@ -18,19 +20,22 @@ class Player {
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
-    vel.set(0, 0);
+    speed = 0.1*em;
+    vel.set(0, -speed);
+    acc.set(0, 0);
   }
 
   void update() {
     prevPos.set(pos);
     move();
+    vel.add(acc);
     pos.add(vel);
     area.update(pos);
   }
   
   void move() {
     float speed = 0.1*em;
-    vel.set(controller.direction).mult(speed);
+    //vel.set(controller.direction).mult(speed);
   }
 
   void display() {
