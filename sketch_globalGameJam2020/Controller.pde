@@ -57,12 +57,28 @@ class Controller {
       }
     }
   }
-  
+
   void displayTouch() {
     float margin = em;
-    float size = 5*em;
-    rect(margin, canvas.h - size - margin, size, size); 
-    rect(canvas.w - size - margin, canvas.h - size - margin, size, size);
+    float size = 3*em;
+    pushMatrix();
+    {
+      translate(0, 0, 4);
+      noStroke();
+            if(left) {
+            fill(128);
+            } else {
+             fill(56); 
+            }
+      rect(margin, canvas.h - size - margin, size, size);
+            if(right) {
+            fill(128);
+            } else {
+             fill(56); 
+            }
+      rect(canvas.w - size - margin, canvas.h - size - margin, size, size);
+    }
+    popMatrix();
   }
 
   void updateDirection() {
