@@ -20,7 +20,7 @@ class Player {
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
-    speed = 0.1*em;
+    speed = 0.125*em;
     vel.set(0, -speed);
     acc.set(0, 0);
   }
