@@ -4,12 +4,15 @@ class Path {
   float verticesDistance;
   PVector[] vertices;
   color c;
+  float initialAngle;
 
-  Path(int _index, float x, float y) {
+  Path(int _index, float x, float y, float _initialAngle) {
     index = _index;
-    pathWeight = 4*em;
+    pathWeight = 5*em;
     verticesDistance = pathWeight/3;
-    c = color(random(255), random(255), random(255));
+    //c = color(random(255), random(255), random(255));
+    c = color(255);
+    initialAngle = _initialAngle;
 
     createPath(new PVector(x, y));
     //vertices = new PVector[100];
@@ -20,10 +23,10 @@ class Path {
   }
 
   void createPath(PVector initialVertex) {
-    vertices = new PVector[100];
+    vertices = new PVector[1000];
     vertices[0] = new PVector();
     vertices[0].set(initialVertex);
-    float angle = -HALF_PI;
+    float angle = initialAngle;
     for (int i = 1; i < vertices.length; i++) {
       float randomAngleRange = TWO_PI/9;
       //float randomAngle = random(-randomAngleRange/2, randomAngleRange);

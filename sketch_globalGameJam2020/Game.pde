@@ -5,7 +5,7 @@ class Game {
   Player[] p = new Player[numberOfPlayers];
   ArrayList<Path> paths = new ArrayList<Path>();
   //Path path;
-  
+
   float targetZoom = 0.8;
 
   Button resetButton = new Button(em, em, 4*em, 3*em, "Reset"); 
@@ -25,7 +25,7 @@ class Game {
     }
     //path = new Path(0);
     paths.clear();
-    paths.add(new Path(0, 0, 0));
+    paths.add(new Path(0, 0, 0, -HALF_PI));
 
     camera.jumpToTarget(p[0].pos.x, p[0].pos.y - em, 1);
   }
