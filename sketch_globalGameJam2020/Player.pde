@@ -8,6 +8,8 @@ class Player {
   float w, h;
   //Rectangle area;
   int currentPath;
+  boolean canBranch;
+  int branchTimer = 0;
   boolean debug = false;
 
   Player(float x, float y) {
@@ -21,10 +23,11 @@ class Player {
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
-    speed = 0.125*em;
-    vel.set(0, -speed);
-    acc.set(0, 0);
+    speed = 0.2*em;
+    vel.set(0, 0);
+    acc.set(0, -speed*0.01);
     currentPath = 0;
+    canBranch = false;
   }
 
   void update() {
@@ -34,37 +37,89 @@ class Player {
     checkCollision();
     move();
     vel.add(acc);
-    pos.add(vel);
+    if (vel.mag() > speed) {
+      vel.setMag(speed);
+    }
+    pos.add(vel.copy().mult(time.scaleFactor));
     //area.update(pos);
+
+    branchTimer += time.deltaMillis;
+    if (branchTimer > 1000) {
+      canBranch = true;
+    }
   }
 
   void checkCollision() {
-    //println(game.path.contains(pos.x, pos.y, w/2));
-    if (!game.paths.get(currentPath).contains(pos.x, pos.y, w/2)) {
-      currentPath++;
-      game.paths.add(new Path(currentPath, pos.x, pos.y));
-      if(game.paths.size() > 25) {
-        game.paths.remove(0);
-        currentPath--;
+    boolean inAnyPath = false;
+    for (int i = 0; i < game.paths.size(); i++) {
+      if (game.paths.get(i).contains(pos.x, pos.y, w/2)) {
+        inAnyPath = true;
       }
     }
+    if (!inAnyPath) {
+      if (canBranch) {
+        createNewBranch();
+      } else {
+        bounce();
+      }
+    }
+
+    //if (!game.paths.get(currentPath).contains(pos.x, pos.y, w/2)) {
+    //  if (canBranch) {
+    //    createNewBranch();
+    //  } else {
+    //    bounce();
+    //  }
+    //}
+  }
+
+  void createNewBranch() {
+    currentPath++;
+    game.paths.add(new Path(currentPath, pos.x, pos.y, acc.heading()));
+    if (game.paths.size() > 20) {
+      game.paths.remove(0);
+      currentPath--;
+    }
+    canBranch = false;
+    branchTimer = 0;
+  }
+
+  void bounce() {
+    pos.sub(vel.copy().mult(time.scaleFactor));
+    vel.rotate(PI);
   }
 
   void move() {
     float rotationAngle = TWO_PI/180;
     if (controller.right) {
-      vel.rotate(rotationAngle);
+      acc.rotate(rotationAngle*time.scaleFactor);
+      vel.rotate(rotationAngle*time.scaleFactor);
     }
     if (controller.left) {
-      vel.rotate(-rotationAngle);
+      acc.rotate(-rotationAngle*time.scaleFactor);
+      vel.rotate(-rotationAngle*time.scaleFactor);
     }
   }
 
   void display() {
     pushMatrix(); 
-    translate(pos.x, pos.y);
     {
-      //
+      translate(pos.x, pos.y, 10);
+      rotate(acc.heading());
+      stroke(0, 0, 255);
+      strokeWeight(0.1*em);
+      if(canBranch) {
+       fill(0, 0, 255);
+      } else {
+       noFill(); 
+      }
+      beginShape();
+      {
+        vertex(em, 0);
+        vertex(-em, 0.8*em);
+        vertex(-em, -0.8*em);
+      }
+      endShape(CLOSE);
     }
     popMatrix();
   }
@@ -73,8 +128,8 @@ class Player {
     if (debug) {
       pushMatrix(); 
       {
-        translate(pos.x, pos.y, 10);
-        rotate(vel.heading());
+        translate(pos.x, pos.y);
+        rotate(acc.heading());
         stroke(0, 0, 255);
         strokeWeight(3);
         //noFill();
