@@ -27,7 +27,7 @@ void setup() {
   state = new State();
   state.startAt(state.HOME);
   canvas = new Canvas(9/16.0);
-  em = canvas.w/16;
+  em = canvas.w/20;
   camera = new Camera(canvas.w/2, canvas.h/2, 1, canvas);
   time = new Time();
   game = new Game();
