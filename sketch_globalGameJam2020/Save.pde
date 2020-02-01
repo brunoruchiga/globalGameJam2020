@@ -12,7 +12,7 @@ class Save {
     if (loadStrings(path) == null) {
       data = new JSONObject();
       data.setInt("id", 0);
-      data.setString("languageId", languageId);
+      data.setString("languageId", localization.languageId);
       saveJSONObject(data, path);
     } else {
       data = loadJSONObject(path);
