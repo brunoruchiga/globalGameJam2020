@@ -33,10 +33,17 @@ class Game {
   }
 
   void display() {
-    background(green);
-
     camera.begin();
     {
+      background(green);
+
+      //Debug terrain
+      for (float y = camera.screenInitialY(); y < camera.screenInitialY() + canvas.h; y+=em) {
+        stroke(255);
+        strokeWeight(3);
+        point(camera.screenInitialX() + canvas.x + canvas.w/2, floor(y/em)*em);
+      }
+
       fill(yellow);
       noStroke();
       ellipse(0, 0, 0.5*em, 0.5*em);
