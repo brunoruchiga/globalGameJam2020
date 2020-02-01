@@ -30,7 +30,7 @@ class Game {
   }
 
   void display() {
-    camera.target.set(p[0].centerX(), p[0].centerY(), 1);
+    camera.target.set(p[0].pos.x, p[0].pos.y, 1);
     camera.update();
     camera.begin();
     {

@@ -35,10 +35,10 @@ class Player {
 
   void move() {
     float rotationAngle = TWO_PI/360;
-    if(controller.right) {
+    if (controller.right) {
       vel.rotate(rotationAngle);
     }
-    if(controller.left) {
+    if (controller.left) {
       vel.rotate(-rotationAngle);
     }
   }
@@ -63,18 +63,11 @@ class Player {
         noFill();
         rect(-w/2, -h/2, w, h);
       }
-      
+
       stroke(255);
       strokeWeight(5);
       point(0, 0);
       popMatrix();
     }
-  }
-  
-  float centerX() {
-    return pos.x+w/2;
-  }
-  float centerY() {
-    return pos.y+h/2;
   }
 }
