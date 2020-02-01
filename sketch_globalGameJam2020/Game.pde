@@ -45,11 +45,11 @@ class Game {
     camera.update();
     camera.begin();
     {
-      background(black);
+        background(black);
 
       //path.display();
-      for (int i = 0; i < paths.size(); i++) {
-        //for(int i = paths.size() - 1; i >= 0; i--) {
+      //for (int i = 0; i < paths.size(); i++) {
+      for (int i = paths.size() - 1; i >= 0; i--) {
         paths.get(i).display();
       }
 
@@ -69,7 +69,7 @@ class Game {
       }
     }
     camera.end();
-    
+
     controller.displayTouch();
 
     if (resetButton.confirmed()) {
