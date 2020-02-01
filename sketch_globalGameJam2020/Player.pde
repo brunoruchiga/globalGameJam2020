@@ -76,7 +76,7 @@ class Player {
         translate(pos.x, pos.y, 10);
         rotate(vel.heading());
         stroke(0, 0, 255);
-        strokeWeight(1);
+        strokeWeight(3);
         //noFill();
         fill(255);
         //rect(-w/2, -h/2, w, h);

@@ -69,6 +69,8 @@ class Game {
       }
     }
     camera.end();
+    
+    controller.displayTouch();
 
     if (resetButton.confirmed()) {
       reset();

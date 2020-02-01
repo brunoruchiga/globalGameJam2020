@@ -7,7 +7,7 @@ class Path {
 
   Path(int _index, float x, float y) {
     index = _index;
-    pathWeight = 3*em;
+    pathWeight = 4*em;
     verticesDistance = pathWeight/3;
     c = color(random(255), random(255), random(255));
 

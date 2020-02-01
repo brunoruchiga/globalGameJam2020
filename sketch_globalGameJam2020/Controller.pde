@@ -57,6 +57,13 @@ class Controller {
       }
     }
   }
+  
+  void displayTouch() {
+    float margin = em;
+    float size = 5*em;
+    rect(margin, canvas.h - size - margin, size, size); 
+    rect(canvas.w - size - margin, canvas.h - size - margin, size, size);
+  }
 
   void updateDirection() {
     direction.set(0, 0);
