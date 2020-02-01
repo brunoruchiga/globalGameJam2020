@@ -7,6 +7,7 @@ class Player {
   PVector acc = new PVector();
   float w, h;
   //Rectangle area;
+  int currentPath;
   boolean debug = false;
 
   Player(float x, float y) {
@@ -23,6 +24,7 @@ class Player {
     speed = 0.125*em;
     vel.set(0, -speed);
     acc.set(0, 0);
+    currentPath = 0;
   }
 
   void update() {
@@ -36,7 +38,11 @@ class Player {
   }
   
   void checkCollision() {
-    println(game.path.contains(pos.x, pos.y, w/2));
+    //println(game.path.contains(pos.x, pos.y, w/2));
+    if(!game.paths.get(currentPath).contains(pos.x, pos.y, w/2)) {
+      currentPath++;
+      game.paths.add(new Path(currentPath, pos.x, pos.y));
+    }
   }
 
   void move() {

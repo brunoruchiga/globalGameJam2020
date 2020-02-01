@@ -3,13 +3,15 @@ class Path {
   float pathWeight;
   float verticesDistance;
   PVector[] vertices;
+  color c;
 
-  Path(int _index) {
+  Path(int _index, float x, float y) {
     index = _index;
     pathWeight = 5*em;
     verticesDistance = pathWeight/2;
+    c = color(random(255), random(255), random(255));
 
-    createPath(new PVector(0, 0));
+    createPath(new PVector(x, y));
     //vertices = new PVector[100];
     //vertices[0] = new PVector(0, 0);
     //for(int i = 1; i < vertices.length; i++) {
@@ -41,7 +43,7 @@ class Path {
   }
 
   void display() {
-    fill(white);
+    fill(c);
     noStroke();
     for (int i = 0; i < vertices.length; i++) {
       if (camera.canSee(vertices[i].x - pathWeight/2, vertices[i].y - pathWeight/2, pathWeight, pathWeight)) {
@@ -50,17 +52,17 @@ class Path {
     }
 
     //Drawing as shape    
-    //strokeWeight(pathWeight);
-    //stroke(white);
-    //noFill();
-    ////strokeJoin(ROUND);
-    //beginShape();
-    //{
-    //  for (int i = 0; i < vertices.length; i++) {
-    //    vertex(vertices[i].x, vertices[i].y);
-    //  }
-    //} 
-    //endShape();
+    strokeWeight(pathWeight);
+    stroke(c);
+    noFill();
+    //strokeJoin(ROUND);
+    beginShape();
+    {
+      for (int i = 0; i < vertices.length; i++) {
+        vertex(vertices[i].x, vertices[i].y);
+      }
+    } 
+    endShape();
 
     //Debug ellipses
     //noFill();
