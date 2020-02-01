@@ -50,17 +50,17 @@ class Path {
     }
 
     //Drawing as shape    
-    strokeWeight(pathWeight);
-    stroke(white);
-    noFill();
-    //strokeJoin(ROUND);
-    beginShape();
-    {
-      for (int i = 0; i < vertices.length; i++) {
-        vertex(vertices[i].x, vertices[i].y);
-      }
-    } 
-    endShape();
+    //strokeWeight(pathWeight);
+    //stroke(white);
+    //noFill();
+    ////strokeJoin(ROUND);
+    //beginShape();
+    //{
+    //  for (int i = 0; i < vertices.length; i++) {
+    //    vertex(vertices[i].x, vertices[i].y);
+    //  }
+    //} 
+    //endShape();
 
     //Debug ellipses
     //noFill();
@@ -76,5 +76,17 @@ class Path {
     //for (int i = 0; i < vertices.length; i++) {
     //  point(vertices[i].x, vertices[i].y, 1);
     //}
+  }
+  
+  boolean contains(float x, float y, float r) {
+    for(int i = 0; i < vertices.length; i++) {
+      float c1 = x - vertices[i].x;
+      float c2 = y - vertices[i].y;
+      float sqrtDistance = (c1*c1) + (c2*c2);
+      if(sqrtDistance - (r*r) < (pathWeight/2)*(pathWeight/2)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

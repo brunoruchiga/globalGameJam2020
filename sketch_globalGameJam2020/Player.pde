@@ -27,10 +27,16 @@ class Player {
 
   void update() {
     prevPos.set(pos);
+    
+    checkCollision();
     move();
     vel.add(acc);
     pos.add(vel);
     //area.update(pos);
+  }
+  
+  void checkCollision() {
+    println(game.path.contains(pos.x, pos.y, w/2));
   }
 
   void move() {
