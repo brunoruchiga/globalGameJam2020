@@ -6,7 +6,7 @@ class Path {
 
   Path(int _index) {
     index = _index;
-    pathWeight = 4*em;
+    pathWeight = 5*em;
     verticesDistance = pathWeight/2;
 
     createPath(new PVector(0, 0));
@@ -24,10 +24,16 @@ class Path {
     float angle = -HALF_PI;
     for (int i = 1; i < vertices.length; i++) {
       float randomAngleRange = TWO_PI/18;
-      angle = angle + random(-randomAngleRange/2, randomAngleRange);
-      //float constrainAngleRange = HALF_PI;
+      float randomAngle = random(-randomAngleRange/2, randomAngleRange);
+      float constrainAngleRange = HALF_PI;
+      if (angle + randomAngle > -HALF_PI - (constrainAngleRange/2) && angle + randomAngle < -HALF_PI + (constrainAngleRange/2)) {
+        angle = angle + randomAngle;
+      } else {
+        randomAngle = randomAngle * (-2);
+        angle = angle + randomAngle;
+      }
       //angle = constrain(angle, -HALF_PI-constrainAngleRange/2, -HALF_PI+constrainAngleRange/2);
-      angle = lerp(angle, -HALF_PI, 0.2);
+      //angle = lerp(angle, -HALF_PI, 0.2);
       float sumX = cos(angle) * verticesDistance;
       float sumY = sin(angle) * verticesDistance;
       vertices[i] = new PVector(vertices[i-1].x + sumX, vertices[i-1].y + sumY);
