@@ -1,6 +1,7 @@
 class Localization {
   Table localizationTable;
   String languageId;
+  boolean debug = false;
 
   Localization() {
     localizationTable = loadTable("localization.csv", "header");
@@ -11,9 +12,11 @@ class Localization {
     int keyIndex = localizationTable.findRowIndex(textKey, "key");
     if (keyIndex == -1) {
       //Error
-      println("[Localization] Key \"" + textKey + "\" not found on table");
+      if (debug) {
+        println("[Localization] Key \"" + textKey + "\" not found on table");
+      }
       return "[" + textKey + "]";
-    };
+    }
     return localizationTable.getString(keyIndex, languageId);
   }
 }

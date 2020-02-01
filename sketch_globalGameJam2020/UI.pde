@@ -1,12 +1,17 @@
 class Menu {
-  Button playButton = new Button(2*em, 8*em, 12*em, 8*em, "play"); 
-  Button settingsButton = new Button(2*em, 17*em, 12*em, 3*em, "settings");
+  Button playButton = new Button(3*em, 8*em, canvas.w-6*em, 8*em, "play"); 
+  Button settingsButton = new Button(3*em, 17*em, canvas.w-6*em, 3*em, "settings");
 
   void update() {
     if (playButton.confirmed()) {
       state.goTo(state.GAME);
     }
     if (settingsButton.confirmed()) {
+      if (localization.languageId == "PT") {
+        localization.languageId = "EN";
+      } else {
+        localization.languageId = "PT";
+      }
     }
   }
 }
