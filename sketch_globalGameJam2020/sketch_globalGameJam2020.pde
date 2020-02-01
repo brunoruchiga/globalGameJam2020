@@ -18,7 +18,7 @@ void settings() {
     fullScreen(P3D);
   } else { 
     //size(360, 640, P3D);
-    size(600, 800, P3D);
+    size(540, 960, P3D);
   }
 }
 
