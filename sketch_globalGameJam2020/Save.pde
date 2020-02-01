@@ -4,7 +4,7 @@ class Save {
   boolean debug = false;
 
   Save() {
-    path = "data/save.json";
+    path = "save.json";
     createSaveFile();
   }
 

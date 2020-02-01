@@ -54,14 +54,14 @@ class Game {
       }
 
       //Debug terrain
-      float debugTerraingSpacing = 2*em;
-      for (float y = camera.screenInitialY(); y < camera.screenInitialY() + canvas.h*2; y+=debugTerraingSpacing) {
-        for (int i = -10; i <= 10; i++) {
-          stroke(255, 255, 0);
-          strokeWeight(2);
-          point(i*debugTerraingSpacing, floor(y/debugTerraingSpacing)*debugTerraingSpacing, -1);
-        }
-      }
+      //float debugTerraingSpacing = 2*em;
+      //for (float y = camera.screenInitialY(); y < camera.screenInitialY() + canvas.h*2; y+=debugTerraingSpacing) {
+      //  for (int i = -10; i <= 10; i++) {
+      //    stroke(255, 255, 0);
+      //    strokeWeight(2);
+      //    point(i*debugTerraingSpacing, floor(y/debugTerraingSpacing)*debugTerraingSpacing, -1);
+      //  }
+      //}
 
       for (int i = 0; i < p.length; i++) {
         p[i].display();

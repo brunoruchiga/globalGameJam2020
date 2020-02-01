@@ -50,25 +50,25 @@ class Path {
   }
 
   void display() {
-    fill(c);
-    noStroke();
-    for (int i = 0; i < vertices.length; i++) {
-      if (camera.canSee(vertices[i].x - pathWeight/2, vertices[i].y - pathWeight/2, pathWeight, pathWeight)) {
-        ellipse(vertices[i].x, vertices[i].y, pathWeight, pathWeight);
-      }
-    }
+    //fill(c);
+    //noStroke();
+    //for (int i = 0; i < vertices.length; i++) {
+    //  if (camera.canSee(vertices[i].x - pathWeight/2, vertices[i].y - pathWeight/2, pathWeight, pathWeight)) {
+    //    ellipse(vertices[i].x, vertices[i].y, pathWeight, pathWeight);
+    //  }
+    //}
 
     //Drawing as shape 
-    //strokeWeight(pathWeight);
-    //stroke(c);
-    //noFill();
-    //beginShape();
-    //{
-    //  for (int i = 0; i < vertices.length; i++) {
-    //    vertex(vertices[i].x, vertices[i].y);
-    //  }
-    //} 
-    //endShape();
+    strokeWeight(pathWeight);
+    stroke(c);
+    noFill();
+    beginShape();
+    {
+      for (int i = 0; i < vertices.length; i++) {
+        vertex(vertices[i].x, vertices[i].y);
+      }
+    } 
+    endShape();
 
     //Debug ellipses
     //noFill();
