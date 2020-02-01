@@ -61,7 +61,8 @@ class Player {
         stroke(0, 0, 255);
         strokeWeight(1);
         noFill();
-        rect(-w/2, -h/2, w, h);
+        //rect(-w/2, -h/2, w, h);
+        ellipse(0, 0, h, w);
         line(0, 0, w, 0);
       }
 
