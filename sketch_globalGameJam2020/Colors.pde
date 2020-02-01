@@ -1,0 +1,10 @@
+color white = color(255, 255, 255);
+color black = color(0, 0, 0);
+color lightBlue = color(128, 255, 255);
+color blue = color(38, 191, 191);
+color green = color(45, 153, 90);
+color lightGrey = color(240, 240, 240);
+color grey = color(128, 128, 128);
+color darkGrey = color(56, 56, 56);
+color yellow = color(255, 187, 51);
+color red = color(204, 20, 20);
