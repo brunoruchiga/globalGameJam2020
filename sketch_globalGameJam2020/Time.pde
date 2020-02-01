@@ -13,7 +13,7 @@ class Time {
   void update() {
     deltaMillis = millis() - prevMillis;
     deltaMillis = min(deltaMillis, 1000/10); //clamp to min of 10fps
-    scaleFactor = deltaMillis * 60/1000.0;
+    scaleFactor = deltaMillis * 60.0/1000.0;
 
     prevMillis = millis();
   }
