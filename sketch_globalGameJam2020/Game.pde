@@ -35,14 +35,15 @@ class Game {
   }
 
   void display() {
-    camera.target.set(p[0].pos.x, p[0].pos.y, 0.5);
+    camera.target.set(p[0].pos.x, p[0].pos.y, 0.75);
     camera.update();
     camera.begin();
     {
       background(black);
       
       //path.display();
-      for(int i = paths.size() - 1; i >= 0; i--) {
+      for(int i = 0; i < paths.size(); i++) {
+      //for(int i = paths.size() - 1; i >= 0; i--) {
         paths.get(i).display();
       }
 

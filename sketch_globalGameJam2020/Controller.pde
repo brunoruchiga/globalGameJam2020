@@ -43,18 +43,20 @@ class Controller {
     mouseReleased = false;
   }
 
-  //void updateTouch() {
-  //  if (mousePressed) {
-  //    if (mouseX > width/2) {
-  //      right = true;
-  //    } else {
-  //      left = true;
-  //    }
-  //  } else {
-  //    right = false;
-  //    left = false;
-  //  }
-  //}
+  void updateTouch() {
+    if (mobileBuild) {
+      if (mousePressed) {
+        if (mouseX > width/2) {
+          right = true;
+        } else {
+          left = true;
+        }
+      } else {
+        right = false;
+        left = false;
+      }
+    }
+  }
 
   void updateDirection() {
     direction.set(0, 0);

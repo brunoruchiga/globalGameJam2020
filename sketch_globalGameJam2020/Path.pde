@@ -8,7 +8,7 @@ class Path {
   Path(int _index, float x, float y) {
     index = _index;
     pathWeight = 3*em;
-    verticesDistance = pathWeight/2;
+    verticesDistance = pathWeight/3;
     c = color(random(255), random(255), random(255));
 
     createPath(new PVector(x, y));
@@ -25,7 +25,7 @@ class Path {
     vertices[0].set(initialVertex);
     float angle = -HALF_PI;
     for (int i = 1; i < vertices.length; i++) {
-      //float randomAngleRange = TWO_PI/9;
+      float randomAngleRange = TWO_PI/9;
       //float randomAngle = random(-randomAngleRange/2, randomAngleRange);
       //float constrainAngleRange = PI;
       //if (angle + randomAngle > -HALF_PI - (constrainAngleRange/2) && angle + randomAngle < -HALF_PI + (constrainAngleRange/2)) {
@@ -35,7 +35,7 @@ class Path {
       //  angle = angle + randomAngle;
       //}
       
-      angle = angle + random(-TWO_PI/36, TWO_PI/36);
+      angle = angle + random(-randomAngleRange/2, randomAngleRange/2);
       //angle=random(-PI,0);
       
       //contrain idea
@@ -58,18 +58,17 @@ class Path {
       }
     }
 
-    //Drawing as shape    
-    strokeWeight(pathWeight);
-    stroke(c);
-    noFill();
-    //strokeJoin(ROUND);
-    beginShape();
-    {
-      for (int i = 0; i < vertices.length; i++) {
-        vertex(vertices[i].x, vertices[i].y);
-      }
-    } 
-    endShape();
+    //Drawing as shape 
+    //strokeWeight(pathWeight);
+    //stroke(c);
+    //noFill();
+    //beginShape();
+    //{
+    //  for (int i = 0; i < vertices.length; i++) {
+    //    vertex(vertices[i].x, vertices[i].y);
+    //  }
+    //} 
+    //endShape();
 
     //Debug ellipses
     //noFill();

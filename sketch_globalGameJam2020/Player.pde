@@ -28,20 +28,25 @@ class Player {
   }
 
   void update() {
+    controller.updateTouch();
     prevPos.set(pos);
-    
+
     checkCollision();
     move();
     vel.add(acc);
     pos.add(vel);
     //area.update(pos);
   }
-  
+
   void checkCollision() {
     //println(game.path.contains(pos.x, pos.y, w/2));
-    if(!game.paths.get(currentPath).contains(pos.x, pos.y, w/2)) {
+    if (!game.paths.get(currentPath).contains(pos.x, pos.y, w/2)) {
       currentPath++;
       game.paths.add(new Path(currentPath, pos.x, pos.y));
+      if(game.paths.size() > 25) {
+        game.paths.remove(0);
+        currentPath--;
+      }
     }
   }
 
@@ -68,11 +73,12 @@ class Player {
     if (debug) {
       pushMatrix(); 
       {
-        translate(pos.x, pos.y);
+        translate(pos.x, pos.y, 10);
         rotate(vel.heading());
         stroke(0, 0, 255);
         strokeWeight(1);
-        noFill();
+        //noFill();
+        fill(255);
         //rect(-w/2, -h/2, w, h);
         ellipse(0, 0, h, w);
         line(0, 0, w, 0);
