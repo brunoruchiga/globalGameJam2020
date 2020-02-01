@@ -53,6 +53,7 @@ class Player {
       {
         translate(pos.x, pos.y);
         stroke(0, 0, 255);
+        strokeWeight(1);
         noFill();
         rect(0, 0, w, h);
       }
