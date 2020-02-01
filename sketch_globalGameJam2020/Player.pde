@@ -6,17 +6,17 @@ class Player {
   PVector vel = new PVector();
   PVector acc = new PVector();
   float w, h;
-  Rectangle area;
+  //Rectangle area;
   boolean debug = false;
 
   Player(float x, float y) {
     w = em;
     h = em;
-    initialPos.set(x - w/2, y - h/2);
-    area = new Rectangle(pos.x, pos.y, w, h);
+    initialPos.set(x, y);
+    //area = new Rectangle(pos.x, pos.y, w, h);
     reset();
   }
-  
+
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
@@ -30,12 +30,17 @@ class Player {
     move();
     vel.add(acc);
     pos.add(vel);
-    area.update(pos);
+    //area.update(pos);
   }
-  
+
   void move() {
-    float speed = 0.1*em;
-    //vel.set(controller.direction).mult(speed);
+    float rotationAngle = TWO_PI/360;
+    if(controller.right) {
+      vel.rotate(rotationAngle);
+    }
+    if(controller.left) {
+      vel.rotate(-rotationAngle);
+    }
   }
 
   void display() {
@@ -52,12 +57,24 @@ class Player {
       pushMatrix(); 
       {
         translate(pos.x, pos.y);
+        rotate(vel.heading());
         stroke(0, 0, 255);
         strokeWeight(1);
         noFill();
-        rect(0, 0, w, h);
+        rect(-w/2, -h/2, w, h);
       }
+      
+      stroke(255);
+      strokeWeight(5);
+      point(0, 0);
       popMatrix();
     }
+  }
+  
+  float centerX() {
+    return pos.x+w/2;
+  }
+  float centerY() {
+    return pos.y+h/2;
   }
 }
