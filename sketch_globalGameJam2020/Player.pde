@@ -34,7 +34,7 @@ class Player {
   }
 
   void move() {
-    float rotationAngle = TWO_PI/360;
+    float rotationAngle = TWO_PI/180;
     if (controller.right) {
       vel.rotate(rotationAngle);
     }
