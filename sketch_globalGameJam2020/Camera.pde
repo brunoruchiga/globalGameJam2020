@@ -36,21 +36,29 @@ class Camera {
   void end() {
     popMatrix();
   }
+  
+  float screenInitialX() {
+    return pointOfInterest.x - (width * normalizedFocusPoint.x * (1/pointOfInterest.z));
+  }
+  float screenInitialY() {
+    return pointOfInterest.y - (height * normalizedFocusPoint.y * (1/pointOfInterest.z));
+  }
+  float screenFinalX() {
+    return screenInitialX() + width * (1/pointOfInterest.z);
+  }
+  float screenFinalY() {
+    return screenInitialY() + height * (1/pointOfInterest.z);
+  }
 
   boolean canSee(float x, float y, float w, float h) {
-    float screenInitialX = pointOfInterest.x - (width * normalizedFocusPoint.x * (1/pointOfInterest.z));
-    float screenInitialY = pointOfInterest.y - (height * normalizedFocusPoint.y * (1/pointOfInterest.z));
-    float screenFinalX = screenInitialX + width * (1/pointOfInterest.z);
-    float screenFinalY = screenInitialY + height * (1/pointOfInterest.z);
-
     //debug
     //stroke(255, 0, 255);
     //noFill();
     //rect(screenInitialX, screenInitialY, width*(1/pointOfInterest.z)-1, height*(1/pointOfInterest.z)-1);
 
-    return (x+w > screenInitialX &&
-            x   < screenFinalX   &&
-            y+h > screenInitialY &&
-            y   < screenFinalY   );
+    return (x+w > screenInitialX() &&
+            x   < screenFinalX()   &&
+            y+h > screenInitialY() &&
+            y   < screenFinalY()   );
   }
 }
