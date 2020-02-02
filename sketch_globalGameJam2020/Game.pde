@@ -25,7 +25,7 @@ class Game {
     }
     //path = new Path(0);
     paths.clear();
-    paths.add(new Path(0, 0, 0, -HALF_PI));
+    paths.add(new Path(0, 0, 0, 6));
 
     camera.jumpToTarget(p[0].pos.x, p[0].pos.y - em, 1);
   }

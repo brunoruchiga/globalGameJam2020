@@ -25,7 +25,7 @@ class Player {
     prevPos.set(pos.x, pos.y);
     speed = 0.2*em;
     vel.set(0, 0);
-    acc.set(0, -speed*0.01);
+    acc.set(0, -speed*0.0002);
     currentPath = 0;
     canBranch = false;
   }
@@ -44,7 +44,7 @@ class Player {
     //area.update(pos);
 
     branchTimer += time.deltaMillis;
-    if (branchTimer > 1000) {
+    if (branchTimer > 5000) {
       canBranch = true;
     }
   }
@@ -75,18 +75,20 @@ class Player {
 
   void createNewBranch() {
     currentPath++;
-    game.paths.add(new Path(currentPath, pos.x, pos.y, acc.heading()));
+    game.paths.add(new Path(currentPath, worldToGrid(pos.x), worldToGrid(pos.y), 6));
     if (game.paths.size() > 20) {
       game.paths.remove(0);
       currentPath--;
     }
     canBranch = false;
     branchTimer = 0;
+    game.targetZoom = game.targetZoom * 0.9; 
   }
 
   void bounce() {
+    //pos.sub(vel.copy().mult(time.scaleFactor));
     pos.sub(vel.copy().mult(time.scaleFactor));
-    vel.rotate(PI);
+    //vel.rotate(PI);
   }
 
   void move() {
@@ -115,9 +117,9 @@ class Player {
       }
       beginShape();
       {
-        vertex(em, 0);
-        vertex(-em, 0.8*em);
-        vertex(-em, -0.8*em);
+        vertex(0.5*em, 0);
+        vertex(-0.5*em, 0.4*em);
+        vertex(-0.5*em, -0.4*em);
       }
       endShape(CLOSE);
     }

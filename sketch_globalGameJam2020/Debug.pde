@@ -2,9 +2,7 @@ void setupDebug() {
   state.startAt(state.GAME);
 
   canvas.debug = true;
-  //for(Player player : game.p) {
-  //  player.debug = true;
-  //}
+  //game.p[0].debug = true;
 
   frameRate(600);
   time.debug = true;
