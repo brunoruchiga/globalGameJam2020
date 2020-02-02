@@ -28,7 +28,7 @@ class Path {
 
 
   void createNewPath(PVector initialVertex) {
-    vertices = new PVector[100];
+    vertices = new PVector[20];
     vertices[0] = new PVector();
     vertices[0].set(initialVertex);
     int direction = initialDirection;
@@ -114,7 +114,7 @@ class Path {
   void update() {
     timer += time.deltaMillis;
     if(timer < 1500) {
-      game.targetZoom = 0.5;
+      game.targetZoom = 0.33;
     }
   }
 

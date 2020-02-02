@@ -23,9 +23,9 @@ class Player {
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
-    speed = 0.2*em;
+    speed = 0.3*em;
     vel.set(0, 0);
-    acc.set(0, -speed*0.0004);
+    acc.set(0, -speed*0.0002);
     currentPath = 0;
     canBranch = false;
   }
@@ -40,14 +40,14 @@ class Player {
     if (!(controller.left && controller.right)) {
       vel.add(acc);
     }
-    //if (vel.mag() > speed) {
-    //  vel.setMag(speed);
-    //}
+    if (vel.mag() > speed) {
+      vel.setMag(speed);
+    }
     pos.add(vel.copy().mult(time.scaleFactor));
     //area.update(pos);
 
     branchTimer += time.deltaMillis;
-    if (branchTimer > 1000) {
+    if (branchTimer > 0001) {
       canBranch = true;
     }
   }
@@ -89,7 +89,7 @@ class Player {
 
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
-    pos.sub(vel.copy().mult(2*time.scaleFactor));
+    pos.sub(vel.copy().mult(10*time.scaleFactor));
     //vel.rotate(PI);
   }
 

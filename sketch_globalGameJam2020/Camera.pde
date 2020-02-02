@@ -12,7 +12,7 @@ class Camera {
   }
 
   void update() {
-    pointOfInterest.lerp(target, 0.1);
+    pointOfInterest.lerp(target, 0.1*time.scaleFactor);
   }
   
   void jumpToTarget(float x, float y, float zoom) {
