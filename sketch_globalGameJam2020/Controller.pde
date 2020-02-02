@@ -60,23 +60,39 @@ class Controller {
 
   void displayTouch() {
     float margin = em;
-    float size = 3*em;
+    float w = 3*em;
+    float h = 4*em;
     pushMatrix();
     {
       translate(0, 0, 4);
       noStroke();
-            if(left) {
-            fill(128);
-            } else {
-             fill(56); 
-            }
-      rect(margin, canvas.h - size - margin, size, size);
-            if(right) {
-            fill(128);
-            } else {
-             fill(56); 
-            }
-      rect(canvas.w - size - margin, canvas.h - size - margin, size, size);
+      if (left) {
+        fill(255);
+      } else {
+        fill(128);
+      }
+      //rect(margin, canvas.h - size - margin, size, size);
+      //left arrow
+      beginShape();
+      {
+        vertex(margin, canvas.h - margin - h/2);
+        vertex(margin + w, canvas.h - margin - h);
+        vertex(margin + w, canvas.h - margin);
+      }
+      endShape();
+      if (right) {
+        fill(255);
+      } else {
+        fill(128);
+      }
+      //right arrow
+      beginShape();
+      {
+        vertex(canvas.w - margin, canvas.h - margin - h/2);
+        vertex(canvas.w - margin - w, canvas.h - margin - h);
+        vertex(canvas.w - margin - w, canvas.h - margin);
+      }
+      endShape();
     }
     popMatrix();
   }
