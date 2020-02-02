@@ -75,8 +75,12 @@ class Game {
       }
     }
     camera.end();
-
-    controller.displayTouch();
+    
+    //Display player health
+    fill(56);
+    rect(em, em, (canvas.w-2*em), em);
+    fill(0, 128, 0);
+    rect(em, em, (canvas.w-2*em)*p[0].health, em);
 
     if (resetButton.confirmed()) {
       reset();

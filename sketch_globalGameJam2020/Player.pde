@@ -10,6 +10,7 @@ class Player {
   int currentPath;
   boolean canBranch;
   int branchTimer = 0;
+  float health = 0.5;
   boolean debug = false;
 
   Player(float x, float y) {
