@@ -36,7 +36,7 @@ class Player {
 
     move();
     acc.mult(1-(0.000008*time.scaleFactor));
-    println(vel.mag()/em);
+    //println(vel.mag()/em);
     if (!(controller.left && controller.right)) {
       vel.add(acc);
     }
@@ -79,7 +79,7 @@ class Player {
   void createNewBranch() {
     currentPath++;
     game.paths.add(new Path(currentPath, worldToGrid(pos.x), worldToGrid(pos.y), 6));
-    if (game.paths.size() > 20) {
+    if (game.paths.size() > 200) {
       game.paths.remove(0);
       currentPath--;
     }

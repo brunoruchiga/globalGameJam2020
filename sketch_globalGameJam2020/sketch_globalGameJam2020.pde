@@ -1,5 +1,6 @@
 boolean mobileBuild = true;
 int numberOfPlayers = 1;
+//import android.view.MotionEvent;
 
 State state;
 Canvas canvas; 
@@ -87,3 +88,9 @@ void draw() {
   controller.debug();
   controller.clearInputs();
 }
+
+//public boolean onTouchEvent (MotionEvent event) {
+//  println(event.getPointerCount());
+//  println("Hello");
+//  return super.onTouchEvent(event);
+//}

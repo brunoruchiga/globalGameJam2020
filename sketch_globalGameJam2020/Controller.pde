@@ -44,18 +44,29 @@ class Controller {
   }
 
   void updateTouch() {
-    if (mobileBuild) {
-      if (mousePressed) {
-        if (mouseX > width/2) {
-          right = true;
-        } else {
-          left = true;
-        }
-      } else {
-        right = false;
-        left = false;
-      }
-    }
+    //if (mobileBuild) {
+    //  if (mousePressed) {
+    //    if (mouseX > width/2) {
+    //      right = true;
+    //    } else {
+    //      left = true;
+    //    }
+    //  } else {
+    //    right = false;
+    //    left = false;
+    //  }
+    //}
+
+    //right = false;
+    //left = false;
+    //for (int i = 0; i < touches.length; i++) {
+    //  if (touches[i].x > width/2) {
+    //    right = true;
+    //  }
+    //  if (touches[i].x < width/2) {     
+    //    left = true;
+    //  }
+    //}
   }
 
   void displayTouch() {
