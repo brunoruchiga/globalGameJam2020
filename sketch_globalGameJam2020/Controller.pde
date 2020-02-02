@@ -70,7 +70,7 @@ class Controller {
   }
 
   void displayTouch() {
-    float margin = em;
+    float margin = 1.5*em;
     float w = 3*em;
     float h = 4*em;
     pushMatrix();
@@ -86,9 +86,9 @@ class Controller {
       //left arrow
       beginShape();
       {
-        vertex(margin, canvas.h - margin - h/2);
-        vertex(margin + w, canvas.h - margin - h);
-        vertex(margin + w, canvas.h - margin);
+        vertex(margin, height - margin - h/2);
+        vertex(margin + w, height - margin - h);
+        vertex(margin + w, height - margin);
       }
       endShape();
       if (right) {
@@ -99,9 +99,9 @@ class Controller {
       //right arrow
       beginShape();
       {
-        vertex(canvas.w - margin, canvas.h - margin - h/2);
-        vertex(canvas.w - margin - w, canvas.h - margin - h);
-        vertex(canvas.w - margin - w, canvas.h - margin);
+        vertex(width - margin, height - margin - h/2);
+        vertex(width - margin - w, height - margin - h);
+        vertex(width - margin - w, height - margin);
       }
       endShape();
     }

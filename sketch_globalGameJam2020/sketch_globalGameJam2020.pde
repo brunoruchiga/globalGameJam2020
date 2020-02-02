@@ -85,6 +85,10 @@ void draw() {
   canvas.end();
   canvas.debug();
 
+  controller.displayTouch();
+
+
+
   controller.debug();
   controller.clearInputs();
 }
