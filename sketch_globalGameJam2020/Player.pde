@@ -121,10 +121,10 @@ class Player {
     {
       translate(pos.x, pos.y, 10);
       rotate(acc.heading());
-      stroke(0, 0, 255);
+      stroke(255);
       strokeWeight(0.1*em);
       if (canBranch) {
-        fill(0, 0, 255);
+        fill(255);
       } else {
         noFill();
       }

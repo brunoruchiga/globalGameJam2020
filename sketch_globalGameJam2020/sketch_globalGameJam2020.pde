@@ -1,4 +1,4 @@
-boolean mobileBuild = false;
+boolean mobileBuild = true;
 int numberOfPlayers = 1;
 
 State state;
