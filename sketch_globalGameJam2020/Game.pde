@@ -36,6 +36,7 @@ class Game {
 
       for (int i = 0; i < p.length; i++) {
         p[i].update();
+        p[i].checkCollision();
       }
     }
   }
@@ -45,7 +46,7 @@ class Game {
     camera.update();
     camera.begin();
     {
-        background(black);
+      background(black);
 
       //path.display();
       //for (int i = 0; i < paths.size(); i++) {

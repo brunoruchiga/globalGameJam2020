@@ -1,8 +1,19 @@
 class Menu {
+  boolean displayButtons = false;
+  
   Button playButton = new Button(3*em, 8*em, canvas.w-6*em, 8*em, "play"); 
   Button settingsButton = new Button(3*em, 17*em, canvas.w-6*em, 3*em, "settings");
 
+  Player menuPlayer;
+
+  Menu() {
+    menuPlayer = new Player(canvas.w/2, 0.5*canvas.h);
+    menuPlayer.acc.rotate(HALF_PI);
+    menuPlayer.speed = 0.1*em;
+  }
+
   void update() {
+    if(displayButtons) {
     if (playButton.confirmed()) {
       state.goTo(state.GAME);
     }
@@ -13,6 +24,15 @@ class Menu {
         localization.languageId = "PT";
       }
     }
+    }
+
+    menuPlayer.update();
+    menuPlayer.display();
+    if(menuPlayer.pos.y < 0) {
+      displayButtons = true;
+    }
+    menuPlayer.roundScreen();
+    controller.displayTouch();
   }
 }
 

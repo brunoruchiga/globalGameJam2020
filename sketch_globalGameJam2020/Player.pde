@@ -34,12 +34,13 @@ class Player {
     controller.updateTouch();
     prevPos.set(pos);
 
-    checkCollision();
     move();
+    acc.mult(0.9997);
+    println(vel.mag()/em);
     vel.add(acc);
-    if (vel.mag() > speed) {
-      vel.setMag(speed);
-    }
+    //if (vel.mag() > speed) {
+    //  vel.setMag(speed);
+    //}
     pos.add(vel.copy().mult(time.scaleFactor));
     //area.update(pos);
 
@@ -82,7 +83,6 @@ class Player {
     }
     canBranch = false;
     branchTimer = 0;
-    game.targetZoom = game.targetZoom * 0.9; 
   }
 
   void bounce() {
@@ -103,6 +103,19 @@ class Player {
     }
   }
 
+  void roundScreen() {
+    if (pos.x > canvas.w) {
+      pos.x = 0;
+    } else if (pos.x < 0) {
+      pos.x = canvas.w;
+    }
+    if (pos.y > canvas.h) {
+      pos.y = 0;
+    } else if (pos.y < 0) {
+      pos.y = canvas.h;
+    }
+  }
+
   void display() {
     pushMatrix(); 
     {
@@ -110,10 +123,10 @@ class Player {
       rotate(acc.heading());
       stroke(0, 0, 255);
       strokeWeight(0.1*em);
-      if(canBranch) {
-       fill(0, 0, 255);
+      if (canBranch) {
+        fill(0, 0, 255);
       } else {
-       noFill(); 
+        noFill();
       }
       beginShape();
       {
