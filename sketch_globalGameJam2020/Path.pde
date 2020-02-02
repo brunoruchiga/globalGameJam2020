@@ -6,6 +6,7 @@ class Path {
   PVector[] vertices;
   color c;
   int initialDirection;
+  float timer;
 
   Path(int _index, int x, int y, int _initialDirection) {
     index = _index;
@@ -21,6 +22,8 @@ class Path {
     //for(int i = 1; i < vertices.length; i++) {
     //  vertices[i] = new PVector(vertices[i-1].x + random(-em, em), vertices[i-1].x + random(-em, -2*em));
     //}
+
+    timer = 0;
   }
 
 
@@ -108,12 +111,21 @@ class Path {
     }
   }
 
+  void update() {
+    timer += time.deltaMillis;
+    if(timer < 1500) {
+      game.targetZoom = 0.5;
+    }
+  }
+
   void display() {
     fill(c);
     noStroke();
     for (int i = 0; i < vertices.length; i++) {
-      if (camera.canSee(gridToWorld(vertices[i].x) - pathWeight/2, gridToWorld(vertices[i].y) - pathWeight/2, pathWeight, pathWeight)) {
-        ellipse(gridToWorld(vertices[i].x), gridToWorld(vertices[i].y), pathWeight, pathWeight);
+      if (i < timer/100) {
+        if (camera.canSee(gridToWorld(vertices[i].x) - pathWeight/2, gridToWorld(vertices[i].y) - pathWeight/2, pathWeight, pathWeight)) {
+          ellipse(gridToWorld(vertices[i].x), gridToWorld(vertices[i].y), pathWeight, pathWeight);
+        }
       }
     }
 

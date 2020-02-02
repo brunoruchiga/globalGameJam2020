@@ -25,7 +25,7 @@ class Player {
     prevPos.set(pos.x, pos.y);
     speed = 0.2*em;
     vel.set(0, 0);
-    acc.set(0, -speed*0.0002);
+    acc.set(0, -speed*0.0004);
     currentPath = 0;
     canBranch = false;
   }
@@ -35,9 +35,11 @@ class Player {
     prevPos.set(pos);
 
     move();
-    acc.mult(0.9997);
+    acc.mult(1-(0.000008*time.scaleFactor));
     println(vel.mag()/em);
-    vel.add(acc);
+    if (!(controller.left && controller.right)) {
+      vel.add(acc);
+    }
     //if (vel.mag() > speed) {
     //  vel.setMag(speed);
     //}
@@ -45,7 +47,7 @@ class Player {
     //area.update(pos);
 
     branchTimer += time.deltaMillis;
-    if (branchTimer > 5000) {
+    if (branchTimer > 1000) {
       canBranch = true;
     }
   }
@@ -87,7 +89,7 @@ class Player {
 
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
-    pos.sub(vel.copy().mult(time.scaleFactor));
+    pos.sub(vel.copy().mult(2*time.scaleFactor));
     //vel.rotate(PI);
   }
 
@@ -119,14 +121,48 @@ class Player {
   void display() {
     pushMatrix(); 
     {
-      translate(pos.x, pos.y, 10);
+      translate(pos.x, pos.y, 2);
       rotate(acc.heading());
-      stroke(255);
-      strokeWeight(0.1*em);
+
+      //Fire left
+      if (!controller.left) {
+        fill(255, 128, 0);
+      } else {
+        fill(128, 56, 0);
+      }
+      noStroke();
+      beginShape();
+      {
+        vertex(-em/2, 0);
+        vertex(-em/2, -0.4*em);
+        vertex(-em/2 -0.6*em, -0.2*em);
+      }
+      endShape();
+
+      //Fire right
+      if (!controller.right) {
+        fill(255, 128, 0);
+      } else {
+        fill(128, 56, 0);
+      }
+      noStroke();
+      beginShape();
+      {
+        vertex(-em/2, 0);
+        vertex(-em/2, 0.4*em);
+        vertex(-em/2 -0.6*em, 0.2*em);
+      }
+      endShape();
+
+      //Triangle
+      translate(0, 0, 2);
+      //stroke(255);
+      //strokeWeight(0.1*em);
+      noStroke();
       if (canBranch) {
         fill(255);
       } else {
-        noFill();
+        fill(128);
       }
       beginShape();
       {

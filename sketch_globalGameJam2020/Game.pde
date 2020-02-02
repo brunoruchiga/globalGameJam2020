@@ -38,11 +38,16 @@ class Game {
         p[i].update();
         p[i].checkCollision();
       }
+
+      for (int i = paths.size() - 1; i >= 0; i--) {
+        paths.get(i).update();
+      }
     }
   }
 
   void display() {
     camera.target.set(p[0].pos.x, p[0].pos.y, targetZoom);
+    game.targetZoom = 1;
     camera.update();
     camera.begin();
     {
