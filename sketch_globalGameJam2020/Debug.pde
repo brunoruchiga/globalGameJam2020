@@ -4,8 +4,8 @@ void setupDebug() {
   //canvas.debug = true;
   //game.p[0].debug = true;
 
-  frameRate(600);
-  time.debug = true;
+  //frameRate(600);
+  //time.debug = true;
   //controller.debug = true;
   //save.debug = true;
   //localization.debug = true;
