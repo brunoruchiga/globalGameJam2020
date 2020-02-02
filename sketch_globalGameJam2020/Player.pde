@@ -10,7 +10,7 @@ class Player {
   int currentPath;
   boolean canBranch;
   //int branchTimer = 0;
-  float health = 0.5;
+  float health = 0.2;
   boolean debug = false;
 
   Player(float x, float y) {
@@ -50,6 +50,20 @@ class Player {
     //branchTimer += time.deltaMillis;
     if (health > 0.8) {
       canBranch = true;
+    }
+
+    for (int i = 0; i < game.paths.size(); i++) {
+      for (int j = 0; j < game.paths.get(i).items.length; j++) {
+        float c1 = pos.x - game.paths.get(i).items[j].pos.x; 
+        float c2 = pos.y - game.paths.get(i).items[j].pos.y;
+        float sqrtDistance = (c1*c1) + (c2*c2);
+        if (game.paths.get(i).items[j].active) {
+          if (sqrtDistance < 3*em*em) {
+            game.paths.get(i).items[j].collect();
+            changeHealth(+0.2);
+          }
+        }
+      }
     }
   }
 
@@ -92,14 +106,14 @@ class Player {
 
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
-    pos.sub(vel.copy().mult(10*time.scaleFactor));
+    pos.sub(vel.copy().mult(5*time.scaleFactor));
     vel.mult(-1);
     changeHealth(-0.1);
     //vel.rotate(PI);
   }
 
   void move() {
-    float rotationAngle = TWO_PI/180;
+    float rotationAngle = TWO_PI/120;
     if (controller.right) {
       acc.rotate(rotationAngle*time.scaleFactor);
       vel.rotate(rotationAngle*time.scaleFactor);
@@ -122,7 +136,7 @@ class Player {
       pos.y = canvas.h;
     }
   }
-  
+
   void changeHealth(float amount) {
     health = health + amount;
     health = constrain(health, 0, 1);
@@ -164,6 +178,20 @@ class Player {
       }
       endShape();
 
+      //Triangle outline
+      if (canBranch) {
+        translate(0, 0, 2);
+        noStroke();
+        fill(cyan);
+        beginShape();
+        {        
+          vertex(0.8*em, 0);
+          vertex(-0.7*em, 0.7*em);
+          vertex(-0.7*em, -0.7*em);
+        }
+        endShape(CLOSE);
+      }
+
       //Triangle
       translate(0, 0, 2);
       //stroke(255);
@@ -172,10 +200,11 @@ class Player {
       if (canBranch) {
         fill(255);
       } else {
-        fill(128);
+        float percent = (sin(millis()*(0.02-(0.01*health)))+1)/2;
+        fill(128 + 56*percent, 128 + 56*percent, 0);
       }
       beginShape();
-      {
+      {        
         vertex(0.5*em, 0);
         vertex(-0.5*em, 0.4*em);
         vertex(-0.5*em, -0.4*em);

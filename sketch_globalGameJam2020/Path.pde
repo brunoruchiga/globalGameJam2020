@@ -7,6 +7,7 @@ class Path {
   color c;
   int initialDirection;
   float timer;
+  Item[] items;
 
   Path(int _index, int x, int y, int _initialDirection) {
     index = _index;
@@ -23,8 +24,10 @@ class Path {
     //  vertices[i] = new PVector(vertices[i-1].x + random(-em, em), vertices[i-1].x + random(-em, -2*em));
     //}
 
+    createItems();
+
     timer = 0;
-    if(index == 0) {
+    if (index == 0) {
       timer = 5000;
       c = color(200);
     }
@@ -67,6 +70,20 @@ class Path {
       vertices[i] = new PVector(vertices[i-1].x + sumX, vertices[i-1].y + sumY);
     }
   }
+
+  void createItems() {
+    items = new Item[vertices.length];
+    for (int i = 0; i < items.length; i++) {
+      float randomAngle = random(TWO_PI);
+      float x = gridToWorld(vertices[i].x) + cos(randomAngle)*0.2*pathWeight;
+      float y = gridToWorld(vertices[i].y) + sin(randomAngle)*0.2*pathWeight;
+      items[i] = new Item(x, y);
+      if (random(1) < 0.5) {
+        items[i].active = false;
+      }
+    }
+  }
+
 
   int convertDirectionToX(int direction) {
     switch (direction) {
@@ -117,7 +134,7 @@ class Path {
 
   void update() {
     timer += time.deltaMillis;
-    if(timer < 1500) {
+    if (timer < 1500) {
       game.targetZoom = 0.33;
     }
   }
@@ -159,6 +176,12 @@ class Path {
     //for (int i = 0; i < vertices.length; i++) {
     //  point(vertices[i].x, vertices[i].y, 1);
     //}
+
+    for (int i = 0; i < items.length; i++) {
+      if (i < timer/100) {
+        items[i].display();
+      }
+    }
   }
 
   boolean contains(float x, float y, float r) {

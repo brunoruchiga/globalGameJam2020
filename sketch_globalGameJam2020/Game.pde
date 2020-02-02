@@ -79,7 +79,7 @@ class Game {
     //Display player health
     fill(56);
     rect(em, em, (canvas.w-2*em), em);
-    fill(0, 128, 0);
+    fill(cyan);
     rect(em, em, (canvas.w-2*em)*p[0].health, em);
 
     if (resetButton.confirmed()) {
