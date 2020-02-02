@@ -23,9 +23,9 @@ class Player {
   void reset() {
     pos.set(initialPos);
     prevPos.set(pos.x, pos.y);
-    speed = 0.3*em;
+    speed = 0.25*em;
     vel.set(0, 0);
-    acc.set(0, -speed*0.0002);
+    acc.set(0, -speed*0.003);
     currentPath = 0;
     canBranch = false;
   }
@@ -35,7 +35,7 @@ class Player {
     prevPos.set(pos);
 
     move();
-    acc.mult(1-(0.000008*time.scaleFactor));
+    //acc.mult(1-(0.000008*time.scaleFactor));
     //println(vel.mag()/em);
     if (!(controller.left && controller.right)) {
       vel.add(acc);
@@ -47,7 +47,7 @@ class Player {
     //area.update(pos);
 
     branchTimer += time.deltaMillis;
-    if (branchTimer > 0001) {
+    if (branchTimer > 5000) {
       canBranch = true;
     }
   }
@@ -60,6 +60,7 @@ class Player {
       }
     }
     if (!inAnyPath) {
+      vel.mult(0.5);
       if (canBranch) {
         createNewBranch();
       } else {
@@ -90,6 +91,7 @@ class Player {
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
     pos.sub(vel.copy().mult(10*time.scaleFactor));
+    vel.mult(-1);
     //vel.rotate(PI);
   }
 
