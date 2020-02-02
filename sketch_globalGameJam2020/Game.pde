@@ -8,9 +8,9 @@ class Game {
 
   float targetZoom = 0.8;
 
-  Button resetButton = new Button(em, em, 4*em, 3*em, "Reset"); 
-  Button zoom0 = new Button(6*em, em, 2*em, 3*em, "-"); 
-  Button zoom1 = new Button(9*em, em, 2*em, 3*em, "+"); 
+  Button resetButton = new Button(em, 3*em, 4*em, 2.5*em, "Reset"); 
+  //Button zoom0 = new Button(6*em, em, 2*em, 2*em, "-"); 
+  //Button zoom1 = new Button(9*em, em, 2*em, 2*em, "+"); 
 
   Game() {
     reset();
@@ -85,11 +85,11 @@ class Game {
     if (resetButton.confirmed()) {
       reset();
     }
-    if (zoom0.confirmed()) {
-      targetZoom = 0.2;
-    }    
-    if (zoom1.confirmed()) {
-      targetZoom = 0.8;
-    }
+    //if (zoom0.confirmed()) {
+    //  targetZoom = 0.2;
+    //}    
+    //if (zoom1.confirmed()) {
+    //  targetZoom = 0.8;
+    //}
   }
 }

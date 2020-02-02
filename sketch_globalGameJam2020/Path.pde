@@ -24,11 +24,15 @@ class Path {
     //}
 
     timer = 0;
+    if(index == 0) {
+      timer = 5000;
+      c = color(200);
+    }
   }
 
 
   void createNewPath(PVector initialVertex) {
-    vertices = new PVector[20];
+    vertices = new PVector[40];
     vertices[0] = new PVector();
     vertices[0].set(initialVertex);
     int direction = initialDirection;

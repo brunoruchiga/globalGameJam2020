@@ -9,7 +9,7 @@ class Player {
   //Rectangle area;
   int currentPath;
   boolean canBranch;
-  int branchTimer = 0;
+  //int branchTimer = 0;
   float health = 0.5;
   boolean debug = false;
 
@@ -47,8 +47,8 @@ class Player {
     pos.add(vel.copy().mult(time.scaleFactor));
     //area.update(pos);
 
-    branchTimer += time.deltaMillis;
-    if (branchTimer > 5000) {
+    //branchTimer += time.deltaMillis;
+    if (health > 0.8) {
       canBranch = true;
     }
   }
@@ -64,6 +64,7 @@ class Player {
       vel.mult(0.5);
       if (canBranch) {
         createNewBranch();
+        health = health/3;
       } else {
         bounce();
       }
@@ -86,13 +87,14 @@ class Player {
       currentPath--;
     }
     canBranch = false;
-    branchTimer = 0;
+    //branchTimer = 0;
   }
 
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
     pos.sub(vel.copy().mult(10*time.scaleFactor));
     vel.mult(-1);
+    changeHealth(-0.1);
     //vel.rotate(PI);
   }
 
@@ -119,6 +121,11 @@ class Player {
     } else if (pos.y < 0) {
       pos.y = canvas.h;
     }
+  }
+  
+  void changeHealth(float amount) {
+    health = health + amount;
+    health = constrain(health, 0, 1);
   }
 
   void display() {

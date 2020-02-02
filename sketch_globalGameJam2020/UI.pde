@@ -85,6 +85,6 @@ class Button {
     textAlign(CENTER, CENTER);
     fill(255);
     textFont(fontSmall);
-    text(getText(textKey), x+(w/2), y+(h/2));
+    text(getText(textKey), x+(w/2), y+(h/2) - 0.1*em);
   }
 }
