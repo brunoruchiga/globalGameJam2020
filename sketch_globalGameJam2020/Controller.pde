@@ -44,18 +44,59 @@ class Controller {
   }
 
   void updateTouch() {
-    //if (mobileBuild) {
-    //  if (mousePressed) {
-    //    if (mouseX > width/2) {
-    //      right = true;
-    //    } else {
+    if (mobileBuild) {
+      if (mousePressed) {
+        if (mouseX > width/2) {
+          right = true;
+        } else {
+          left = true;
+        }
+      } else {
+        right = false;
+        left = false;
+      }
+    }
+    
+    multiTouchHandle();
+  }
+
+  void multiTouchHandle() {
+    //if (right) {
+    //  for (int i = 0; i < touches.length; i++) {
+    //    if (touches[i].x < width/2) {     
     //      left = true;
+    //      right = false;
     //    }
-    //  } else {
-    //    right = false;
-    //    left = false;
+    //  }
+    //} else {
+    //  for (int i = 0; i < touches.length; i++) {
+    //    if (touches[i].x > width/2) {     
+    //      left = false;
+    //      right = true;
+    //    }
     //  }
     //}
+    //if (left) {
+    //  for (int i = 0; i < touches.length; i++) {
+    //    if (touches[i].x > width/2) {     
+    //      left = false;
+    //      right = true;
+    //    }
+    //  }
+    //} else {
+    //  for (int i = 0; i < touches.length; i++) {
+    //    if (touches[i].x < width/2) {     
+    //      left = true;
+    //      right = false;
+    //    }
+    //  }
+    //}
+    //if (touches.length == 0) {
+    //  left = false;
+    //  right = false;
+    //}
+
+
 
     //right = false;
     //left = false;
@@ -141,6 +182,7 @@ class Controller {
 
 void mouseReleased() {
   controller.mouseReleased = true;
+  //saveFrame(floor(random(100)) + "######");
 }
 
 void keyPressed() {

@@ -1,6 +1,7 @@
 class Item {
   PVector pos;
   float r;
+  float pickedTimer = 0;
   boolean active;
 
   Item(float x, float y) {
@@ -11,12 +12,17 @@ class Item {
 
   void collect() {
     active = false;
+    pickedTimer = 500;
   }
   void display() {
-    if (active) {
-      pushMatrix(); 
-      {
-        translate(pos.x, pos.y, 15);
+    //update
+    pickedTimer = pickedTimer - time.deltaMillis;
+
+    pushMatrix(); 
+    {
+      translate(pos.x, pos.y, 15);
+
+      if (active) {
 
         float size = r*2 + 0.33*r*(sin(millis()*0.01));
         float ringSize = r*2 + 0.33*r*(sin((millis()*0.01)+PI)) + 0.4*em;
@@ -30,7 +36,15 @@ class Item {
         noStroke();
         ellipse(0, 0, size, size);
       }
-      popMatrix();
+
+
+      if (pickedTimer > 0 && pickedTimer < 500) {
+        stroke(cyan);
+        strokeWeight(0.3*em);
+        noFill();
+        ellipse(0, 0, (pickedTimer/500)*3*em, (pickedTimer/500)*3*em);
+      }
     }
+    popMatrix();
   }
 }

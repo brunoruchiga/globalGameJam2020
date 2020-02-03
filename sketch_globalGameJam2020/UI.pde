@@ -1,6 +1,6 @@
 class Menu {
   boolean displayButtons = false;
-  
+
   Button playButton = new Button(3*em, 8*em, canvas.w-6*em, 8*em, "play"); 
   Button settingsButton = new Button(3*em, 17*em, canvas.w-6*em, 3*em, "settings");
 
@@ -13,26 +13,32 @@ class Menu {
   }
 
   void update() {
-    if(displayButtons) {
-    if (playButton.confirmed()) {
-      state.goTo(state.GAME);
-    }
-    if (settingsButton.confirmed()) {
-      if (localization.languageId == "PT") {
-        localization.languageId = "EN";
-      } else {
-        localization.languageId = "PT";
+    if (displayButtons) {
+      if (playButton.confirmed()) {
+        state.goTo(state.GAME);
+        music.play();
       }
-    }
+      if (settingsButton.confirmed()) {
+        if (localization.languageId == "PT") {
+          localization.languageId = "EN";
+        } else {
+          localization.languageId = "PT";
+        }
+      }
     }
 
     menuPlayer.update();
     menuPlayer.display();
-    if(menuPlayer.pos.y < 0) {
+    if (menuPlayer.pos.y < 0) {
       displayButtons = true;
     }
     menuPlayer.roundScreen();
-    controller.displayTouch();
+
+    textFont(fontSmall);
+    fill(128);
+    textAlign(CENTER, BOTTOM);
+    text("BRUNO RUCHIGA\nMADE WITH PROCESSING\nGLOBAL GAME JAM 2020", canvas.w/2, canvas.h-2*em);
+    //controller.displayTouch();
   }
 }
 

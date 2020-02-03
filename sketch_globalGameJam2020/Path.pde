@@ -140,12 +140,17 @@ class Path {
   }
 
   void display() {
-    fill(c);
-    noStroke();
     for (int i = 0; i < vertices.length; i++) {
       if (i < timer/100) {
         if (camera.canSee(gridToWorld(vertices[i].x) - pathWeight/2, gridToWorld(vertices[i].y) - pathWeight/2, pathWeight, pathWeight)) {
+          fill(c);
+          noStroke();
           ellipse(gridToWorld(vertices[i].x), gridToWorld(vertices[i].y), pathWeight, pathWeight);
+
+          if (i == vertices.length -1) {
+            fill(0, random(100, 200), 0);
+            ellipse(gridToWorld(vertices[i].x), gridToWorld(vertices[i].y), pathWeight-3*em, pathWeight-3*em);
+          }
         }
       }
     }

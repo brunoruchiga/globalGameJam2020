@@ -14,11 +14,11 @@
 //DEIXAR MAIS VISIVEL PRA QUE LADO ESTA INDO
 //EFEITO DE DAMAGE QUANDO ABRE CAMINHO (ELLIPSE BRANCA DIMINUINDO)
 
+import processing.sound.*;
+SoundFile music;
 
 
-
-
-boolean mobileBuild = true;
+boolean mobileBuild = false;
 int numberOfPlayers = 1;
 //import android.view.MotionEvent;
 
@@ -40,12 +40,15 @@ void settings() {
     fullScreen(P3D);
   } else { 
     //size(360, 640, P3D);
-    size(540, 960, P3D);
-    //fullScreen(P3D);
+    //size(540, 960, P3D);
+    fullScreen(P3D);
   }
 }
 
 void setup() {
+    music = new SoundFile(this, "music.mp3");
+
+  
   orientation(PORTRAIT);
   state = new State();
   state.startAt(state.HOME);
@@ -64,6 +67,7 @@ void setup() {
   fontSmall = createFont("Roboto-Bold.ttf", 0.75*em);
 
   setupDebug();
+  
 }
 
 void draw() {
@@ -106,8 +110,6 @@ void draw() {
   canvas.debug();
 
   controller.displayTouch();
-
-
 
   controller.debug();
   controller.clearInputs();

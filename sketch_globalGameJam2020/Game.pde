@@ -1,3 +1,5 @@
+float gameOverTimer = 0;
+
 class Game {
   boolean playing;
   boolean gameOver;
@@ -8,7 +10,7 @@ class Game {
 
   float targetZoom = 0.8;
 
-  Button resetButton = new Button(em, 3*em, 4*em, 2.5*em, "Reset"); 
+  //Button resetButton = new Button(em, 3*em, 4*em, 2.5*em, "Reset"); 
   //Button zoom0 = new Button(6*em, em, 2*em, 2*em, "-"); 
   //Button zoom1 = new Button(9*em, em, 2*em, 2*em, "+"); 
 
@@ -47,7 +49,10 @@ class Game {
 
   void display() {
     camera.target.set(p[0].pos.x, p[0].pos.y, targetZoom);
-    game.targetZoom = 1;
+    if (gameOver) {
+      gameOverTimer += time.deltaMillis;
+    }
+    game.targetZoom = 1 - constrain((gameOverTimer*0.0001), 0, 0.96);
     camera.update();
     camera.begin();
     {
@@ -75,16 +80,44 @@ class Game {
       }
     }
     camera.end();
-    
-    //Display player health
-    fill(56);
-    rect(em, em, (canvas.w-2*em), em);
-    fill(cyan);
-    rect(em, em, (canvas.w-2*em)*p[0].health, em);
 
-    if (resetButton.confirmed()) {
-      reset();
+    if (gameOver) {
+      textAlign(CENTER, CENTER);
+      fill(255);
+      textFont(fontBig);
+      text("CONGRATULATION!\nTHANK YOU FOR PLAYING", canvas.w/2, canvas.h/2);
+      //text("/", canvas.w/2, canvas.h/2);
     }
+
+    fill(255);
+    textFont(font);
+    textAlign(RIGHT, TOP);
+    text(p[0].score + ".000", canvas.w - em, 3.5*em);
+
+    //Display player health
+    translate(0, 0, 2);
+    fill(56);
+    rect(em, em, (canvas.w-2*em), 2*em);
+    translate(0, 0, 2);
+    if (p[0].canBranch) {
+      float percent = (sin(millis()*0.01)+1)/2;
+      fill(lerpColor(cyan, white, percent, RGB));
+    } else {
+      fill(cyan);
+    }
+    rect(em, em, (canvas.w-2*em)*p[0].visibleHealth, 2*em);
+
+    if (!p[0].canBranch) {
+      fill(cyan);
+      textFont(font);
+      textAlign(LEFT, TOP);
+      text("REPAIRING DAMAGE...", em, 3.5*em);
+    }
+
+
+    //if (resetButton.confirmed()) {
+    //  reset();
+    //}
     //if (zoom0.confirmed()) {
     //  targetZoom = 0.2;
     //}    

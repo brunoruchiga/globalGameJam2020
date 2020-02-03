@@ -11,6 +11,8 @@ class Player {
   boolean canBranch;
   //int branchTimer = 0;
   float health = 0.2;
+  float visibleHealth = 1;
+  int score = 0;
   boolean debug = false;
 
   Player(float x, float y) {
@@ -32,39 +34,38 @@ class Player {
   }
 
   void update() {
+    visibleHealth = lerp(visibleHealth, health, 0.1*time.scaleFactor);
+
     controller.updateTouch();
     prevPos.set(pos);
 
-    move();
-    //acc.mult(1-(0.000008*time.scaleFactor));
-    //println(vel.mag()/em);
-    if (!(controller.left && controller.right)) {
-      vel.add(acc);
+    if (!game.gameOver) {
+      move();
+
+      //acc.mult(1-(0.000008*time.scaleFactor));
+      //println(vel.mag()/em);
+      if (!(controller.left && controller.right)) {
+        vel.add(acc);
+      }
+      if (vel.mag() > speed) {
+        vel.setMag(speed);
+      }
+      pos.add(vel.copy().mult(time.scaleFactor));
+      //area.update(pos);
     }
-    if (vel.mag() > speed) {
-      vel.setMag(speed);
-    }
-    pos.add(vel.copy().mult(time.scaleFactor));
-    //area.update(pos);
 
     //branchTimer += time.deltaMillis;
     if (health > 0.8) {
       canBranch = true;
     }
-
     for (int i = 0; i < game.paths.size(); i++) {
-      for (int j = 0; j < game.paths.get(i).items.length; j++) {
-        float c1 = pos.x - game.paths.get(i).items[j].pos.x; 
-        float c2 = pos.y - game.paths.get(i).items[j].pos.y;
-        float sqrtDistance = (c1*c1) + (c2*c2);
-        if (game.paths.get(i).items[j].active) {
-          if (sqrtDistance < 3*em*em) {
-            game.paths.get(i).items[j].collect();
-            changeHealth(+0.2);
-          }
-        }
+      //if (abs(gridToWorld(game.paths.get(i).vertices[3].x) - pos.x) < 5*em && abs(gridToWorld(game.paths.get(i).vertices[3].y - pos.y)) < 5*em) {
+      if (dist(gridToWorld(game.paths.get(i).vertices[39].x), gridToWorld(game.paths.get(i).vertices[39].y), pos.x, pos.y) < 5*em) { 
+        game.gameOver = true;
       }
     }
+
+    checkItems();
   }
 
   void checkCollision() {
@@ -93,6 +94,24 @@ class Player {
     //}
   }
 
+
+  void checkItems() {
+    for (int i = 0; i < game.paths.size(); i++) {
+      for (int j = 0; j < game.paths.get(i).items.length; j++) {
+        float c1 = pos.x - game.paths.get(i).items[j].pos.x; 
+        float c2 = pos.y - game.paths.get(i).items[j].pos.y;
+        float sqrtDistance = (c1*c1) + (c2*c2);
+        if (game.paths.get(i).items[j].active) {
+          if (sqrtDistance < 3*em*em) {
+            game.paths.get(i).items[j].collect();
+            changeHealth(+0.1);
+            score += 1;
+          }
+        }
+      }
+    }
+  }
+
   void createNewBranch() {
     currentPath++;
     game.paths.add(new Path(currentPath, worldToGrid(pos.x), worldToGrid(pos.y), 6));
@@ -107,8 +126,8 @@ class Player {
   void bounce() {
     //pos.sub(vel.copy().mult(time.scaleFactor));
     pos.sub(vel.copy().mult(5*time.scaleFactor));
-    vel.mult(-1);
-    changeHealth(-0.1);
+    vel.mult(0);
+    changeHealth(-0.05);
     //vel.rotate(PI);
   }
 
@@ -143,75 +162,77 @@ class Player {
   }
 
   void display() {
-    pushMatrix(); 
-    {
-      translate(pos.x, pos.y, 2);
-      rotate(acc.heading());
-
-      //Fire left
-      if (!controller.left) {
-        fill(255, 128, 0);
-      } else {
-        fill(128, 56, 0);
-      }
-      noStroke();
-      beginShape();
+    if (!game.gameOver) {
+      pushMatrix(); 
       {
-        vertex(-em/2, 0);
-        vertex(-em/2, -0.4*em);
-        vertex(-em/2 -0.6*em, -0.2*em);
-      }
-      endShape();
+        translate(pos.x, pos.y, 2);
+        rotate(acc.heading());
 
-      //Fire right
-      if (!controller.right) {
-        fill(255, 128, 0);
-      } else {
-        fill(128, 56, 0);
-      }
-      noStroke();
-      beginShape();
-      {
-        vertex(-em/2, 0);
-        vertex(-em/2, 0.4*em);
-        vertex(-em/2 -0.6*em, 0.2*em);
-      }
-      endShape();
-
-      //Triangle outline
-      if (canBranch) {
-        translate(0, 0, 2);
+        //Fire left
+        if (!controller.left) {
+          fill(255, 128, 0);
+        } else {
+          fill(128, 56, 0);
+        }
         noStroke();
-        fill(cyan);
+        beginShape();
+        {
+          vertex(-em/2, 0);
+          vertex(-em/2, -0.4*em);
+          vertex(-em/2 -0.6*em, -0.2*em);
+        }
+        endShape();
+
+        //Fire right
+        if (!controller.right) {
+          fill(255, 128, 0);
+        } else {
+          fill(128, 56, 0);
+        }
+        noStroke();
+        beginShape();
+        {
+          vertex(-em/2, 0);
+          vertex(-em/2, 0.4*em);
+          vertex(-em/2 -0.6*em, 0.2*em);
+        }
+        endShape();
+
+        //Triangle outline
+        if (canBranch) {
+          translate(0, 0, 2);
+          noStroke();
+          fill(cyan);
+          beginShape();
+          {        
+            vertex(0.8*em, 0);
+            vertex(-0.7*em, 0.7*em);
+            vertex(-0.7*em, -0.7*em);
+          }
+          endShape(CLOSE);
+        }
+
+        //Triangle
+        translate(0, 0, 2);
+        //stroke(255);
+        //strokeWeight(0.1*em);
+        noStroke();
+        if (canBranch) {
+          fill(255);
+        } else {
+          float percent = (sin(millis()*(0.02-(0.01*health)))+1)/2;
+          fill(128 + 56*percent, 128 + 56*percent, 0);
+        }
         beginShape();
         {        
-          vertex(0.8*em, 0);
-          vertex(-0.7*em, 0.7*em);
-          vertex(-0.7*em, -0.7*em);
+          vertex(0.5*em, 0);
+          vertex(-0.5*em, 0.4*em);
+          vertex(-0.5*em, -0.4*em);
         }
         endShape(CLOSE);
       }
-
-      //Triangle
-      translate(0, 0, 2);
-      //stroke(255);
-      //strokeWeight(0.1*em);
-      noStroke();
-      if (canBranch) {
-        fill(255);
-      } else {
-        float percent = (sin(millis()*(0.02-(0.01*health)))+1)/2;
-        fill(128 + 56*percent, 128 + 56*percent, 0);
-      }
-      beginShape();
-      {        
-        vertex(0.5*em, 0);
-        vertex(-0.5*em, 0.4*em);
-        vertex(-0.5*em, -0.4*em);
-      }
-      endShape(CLOSE);
+      popMatrix();
     }
-    popMatrix();
   }
 
   void debug() {
